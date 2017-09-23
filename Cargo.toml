@@ -4,4 +4,5 @@ version = "0.0.0"
 authors = ["leavehouse <heavelouse@gmail.com>"]
 
 [dependencies]
+hyper = "0.10"
 multipart = "0.13"
