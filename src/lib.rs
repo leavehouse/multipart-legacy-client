@@ -20,6 +20,7 @@ use hyper::method::Method;
 pub use multipart::client::Multipart;
 use std::io::{self, Read};
 
+#[derive(Debug)]
 pub enum RequestError {
     ParseError(hyper::error::ParseError),
     HyperError(hyper::Error),

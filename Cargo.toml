@@ -1,6 +1,6 @@
 [package]
 name = "multipart-legacy-client"
-version = "0.0.0"
+version = "0.0.1"
 authors = ["leavehouse <heavelouse@gmail.com>"]
 
 [dependencies]
