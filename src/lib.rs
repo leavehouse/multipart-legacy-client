@@ -1,17 +1,3 @@
-
-/*
-extern crate hyper;
-extern crate multipart;
-
-use hyper::client::Request;
-use hyper::method::Method;
-use hyper::net::Streaming;
-
-use multipart::client::Multipart;
-
-use std::io::Read;
-*/
-
 extern crate hyper;
 extern crate multipart;
 
@@ -45,12 +31,13 @@ impl From<io::Error> for RequestError {
     }
 }
 
-pub fn send_new_post_request<T>(url: T, mut data: &[u8]) -> Result<Vec<u8>, RequestError>
+pub fn send_new_post_request<T>(url: T, file: &std::path::Path)
+                                -> Result<Vec<u8>, RequestError>
                                 where T: AsRef<str> {
     let parsed_url = url.as_ref().parse()?;
     let request = Request::new(Method::Post, parsed_url)?;
     let mut mp_request = Multipart::from_request(request)?;
-    mp_request.write_stream("file", &mut data, None, None)?;
+    mp_request.write_file("what_does_this_do", file)?;
     let mut response = mp_request.send()?;
 
     if !response.status.is_success() {
