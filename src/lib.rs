@@ -31,13 +31,15 @@ impl From<io::Error> for RequestError {
     }
 }
 
-pub fn send_new_post_request<T>(url: T, file: &std::path::Path)
+pub fn send_new_post_request<T>(url: T, files: &[&std::path::Path])
                                 -> Result<Vec<u8>, RequestError>
                                 where T: AsRef<str> {
     let parsed_url = url.as_ref().parse()?;
     let request = Request::new(Method::Post, parsed_url)?;
     let mut mp_request = Multipart::from_request(request)?;
-    mp_request.write_file("what_does_this_do", file)?;
+    for (i, file) in files.iter().enumerate() {
+        mp_request.write_file("files", file)?;
+    }
     let mut response = mp_request.send()?;
 
     if !response.status.is_success() {
